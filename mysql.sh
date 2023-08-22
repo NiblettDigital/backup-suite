@@ -10,7 +10,7 @@ FILE_NAME=$DB_NAME-$DATE_FORMAT".sql.gz";
 echo "Beginning MySQL Dump";
 
 # SSH into the server, complete a mysql dump and download the file
-ssh $REMOTE_HOST "mysqldump --no-tablespaces --databases $DB_NAME --host=$DB_HOST --user=$DB_USER --password=$DB_PASSWORD | gzip -9"  > $BACKUPS/$BACKUPS_MYSQL/$FILE_NAME
+ssh $REMOTE_HOST -p $REMOTE_PORT "mysqldump --no-tablespaces --databases $DB_NAME --host=$DB_HOST --user=$DB_USER --password=$DB_PASSWORD | gzip -9"  > $BACKUPS/$BACKUPS_MYSQL/$FILE_NAME
 
 # Print message
 echo "Completing MySQL Dump";
