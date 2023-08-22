@@ -19,7 +19,7 @@ echo "Completing MySQL Dump"
 echo "Searching for old Archives"
 
 # Find and Delete
-find $BACKUPS/$BACKUPS_MYSQL/* -mtime +$KEEP_DAILY_MYSQL -delete
+find $BACKUPS/$BACKUPS_MYSQL/* -mtime +$KEEP_DAILY_ARCHIVE -delete
 
 # Print message
 echo "Completing Archive Search"
