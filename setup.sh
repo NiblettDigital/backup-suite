@@ -9,3 +9,6 @@ mkdir -p $BACKUPS/$BACKUPS_DAILY
 mkdir -p $BACKUPS/$BACKUPS_WEEKLY
 mkdir -p $BACKUPS/$BACKUPS_MONTHLY
 mkdir -p $BACKUPS/$BACKUPS_MYSQL
+
+# Print message
+echo "Folders Created"
