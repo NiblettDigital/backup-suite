@@ -7,17 +7,18 @@ source .env
 echo "Searching for the Newest MySQL Archive & Copying to the Weekly Folder"
 
 # Get the File Name of the most recent MySQL Archive
-WEEKLY=$(ls backups/mysql -t | egrep '\.sql.gz' | head -1)
-cp $BACKUPS/$BACKUPS_MYSQL/$WEEKLY $BACKUPS/$BACKUPS_WEEKLY/$WEEKLY 
+WEEKLY_MYSQL=$(ls backups/mysql -t | egrep '\.sql.gz' | head -1)
+cp $BACKUPS/$BACKUPS_MYSQL/$WEEKLY_MYSQL $BACKUPS/$BACKUPS_WEEKLY/$WEEKLY_MYSQL 
 
 # Print message
 echo "Search Complete"
 
 # Print message
-echo "Creating Archive from rsync folder"
+echo "Copying Weekly Archive from Daily folder"
 
-# Create Archive
-(cd $BACKUPS/$BACKUPS_DAILY && tar -czvf - * | gzip) > $BACKUPS/$BACKUPS_WEEKLY/$DATE_FORMAT"-weekly.tar.gz"
+# Copying Archive
+WEEKLY_FILE=$(ls backups/daily -t | egrep '\.tar.gz' | head -1)
+cp $BACKUPS/$BACKUPS_DAILY/$WEEKLY_FILE $BACKUPS/$BACKUPS_WEEKLY/$WEEKLY_FILE 
 
 # Print message
 echo "Archive Created"
