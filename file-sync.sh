@@ -7,7 +7,7 @@ source .env
 echo "Beginning rsync";
 
 # rsync pull to this server 
-rsync -arvz -e 'ssh -p 344' --delete $REMOTE_HOST:$REMOTE_ARCHIVE $BACKUPS/$BACKUPS_DAILY
+rsync -arvz -e 'ssh -p '$REMOTE_PORT --delete $REMOTE_HOST:$REMOTE_ARCHIVE $BACKUPS/$BACKUPS_DAILY
 
 # Print message
 echo "Completing rsync";
