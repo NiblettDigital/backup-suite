@@ -15,5 +15,14 @@ ssh $REMOTE_HOST -p $REMOTE_PORT "mysqldump --no-tablespaces --databases $DB_NAM
 # Print message
 echo "Completing MySQL Dump";
 
+# Remove old mysql archives
+echo "Searching for old Archives";
+
+# Find and Delete
+find $BACKUPS/$BACKUPS_MYSQL/* -mtime +$KEEP_DAILY_MYSQL -delete
+
+# Print message
+echo "Completing Archive Search";
+
 # Exit Script
 exit 0;
