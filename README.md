@@ -21,11 +21,23 @@ This file can be configured by duplicating the sample.env file. Some things to n
 
 This script will ensure that all folders are created properly.
 
+```
+Execution
+./setup.sh [options]
+
+Example [Options are x number of Media Archive Folders]
+./setup.sh wp-content/uploads
+```
+
 ### ``file-sync.sh``
 
 This script will create an rsync copy of as many paths that are passed to the script, and pull them into `$BACKUPS/$BACKUPS_RSYNC/$ARCHIVE`
 
 ```
+Execution
+./file-sync.sh [options]
+
+Example [Options are x number of Media Archive Folders]
 ./file-sync.sh wp-content/uploads
 ```
 
@@ -36,6 +48,10 @@ If the script(s) are configured to run, they will create a gzipped mysql dump fi
 You must pass at least one parameter to the script, the database name. There can be multiple, but one minimum.
 
 ```
+Execution
+./mysql.sh [options]
+
+Example [Options are x number of Databases with user $DB_USER access]
 ./mysql.sh database1 database2
 ```
 
@@ -43,13 +59,29 @@ You must pass at least one parameter to the script, the database name. There can
 
 This script will create an archive of `$BACKUPS/$BACKUPS_RSYNC`, then move the archive to `$BACKUPS/$BACKUPS_DAILY`. Once done, it will remove any daily archive file(s) older than `$KEEP_DAILY_ARCHIVE` day(s) old.
 
+```
+Execution
+./daily.sh
+
+Example 
+./daily.sh 
+```
+
 ### ``weekly.sh``
 
-This script is designed to run once a week, and it will copy one archive file and `{n}` Mysql Dump Files to `$BACKUPS/$BACKUPS_WEEKLY`:
+This script is designed to run once a week, and it will copy a media archive file (if available) and Mysql Dump File(s) to `$BACKUPS/$BACKUPS_WEEKLY`:
 1. The latest MySQL Dump from `$BACKUPS/$BACKUPS_MYSQL`.
 2. The latest Archive file from `$BACKUPS/$BACKUPS_DAILY`.
 
 Once done, it will remove any weekly archive file(s) older than `$KEEP_WEEKLY_ARCHIVE` day(s) old.
+
+```
+Execution
+./weekly.sh [options]
+
+Example [Options are x number of Databases with user $DB_USER access]
+./weekly.sh database1 database2
+```
 
 ### ``monthly.sh``
 
@@ -58,6 +90,13 @@ This script is designed to run once a month, and it will one archive file and `{
 2. The latest Archive file from `$BACKUPS/$BACKUPS_DAILY`.
 
 Once done, it will remove any monthly archive file(s) older than `$KEEP_MONTHLY_ARCHIVE` day(s) old.
+```
+Execution
+./monthly.sh [options]
+
+Example [Options are x number of Databases with user $DB_USER access]
+./monthly.sh database1 database2
+```
 <br><br>
 
 ## Expected Crontab Implementation
