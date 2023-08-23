@@ -4,6 +4,17 @@ This Suite of Backup Tools are designed to run externally. It can rsync up to 10
 
 It is configurable to archive the MySQL Dumps & rsync files Daily, and Duplicate Weekly and Monthly archives as well as remove out-of-date copies.
 
+## TODO: 
+
+Implement passing parameters to the script through crontab:
+```
+15 * * * * /mysql.sh [table_name1]
+30 * * * * /mysql.sh [table_name2]
+```
+
+This will allow me to remove `mysql_1.sh` and `mysql_2.sh`, and run everything through `mysql.sh` This format & setup was just a proof of concept to make sure the `daily.sh`, `weekly.sh` & `monthly.sh` scripts were able to generate proper archival files.
+
+
 ## File Notes & Descriptions
 
 The `.sh` scripts below require the .env file exists, and is properly configured. Not all scripts have to be configured to run, however any archiving script require the `mysql_n.sh` **OR** `file-sync.sh` to be run.
