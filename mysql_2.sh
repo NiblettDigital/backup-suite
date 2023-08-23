@@ -3,7 +3,7 @@
 # load environment file
 source .env
 
-# IF there isn't a second Database to archive
+# IF there isn't a third Database to archive
 [ -z "$DB_NAME_2" ] && exit 0;
 
 # Build File Name
