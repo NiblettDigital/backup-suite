@@ -7,7 +7,7 @@ source .env
 echo "Creating Archive from rsync folder"
 
 # Create Archive
-(cd $BACKUPS/$BACKUPS_RSYNC && tar -czvf - * | gzip) > $BACKUPS/$BACKUPS_DAILY/$DATE_FORMAT"-archive.tar.gz"
+(cd $BACKUPS/$BACKUPS_RSYNC && tar -czvf - * | gzip) > $BACKUPS/$BACKUPS_DAILY/$DATE_FORMAT"-content.tar.gz"
 
 # Print message
 echo "Archive Created"
