@@ -6,6 +6,7 @@ source .env
 # Loop through all parameters passed to the script
 for DATABASE in "$@"
 do
+
   # Print message
   echo "Beginning MySQL Dump"
   

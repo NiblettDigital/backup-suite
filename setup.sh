@@ -14,6 +14,7 @@ mkdir -p $BACKUPS/$BACKUPS_MYSQL
 # Loop through all parameters passed to the script
 for ARCHIVE in "$@"
 do
+
   # rsync archive folder(s) - pull to this server 
   mkdir -p $BACKUPS/$BACKUPS_RSYNC/$ARCHIVE;
 

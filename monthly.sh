@@ -19,6 +19,7 @@ do
   echo "Search Complete"
 
 done
+
 # Print message
 echo "Copying Weekly Archive from Daily folder"
 
