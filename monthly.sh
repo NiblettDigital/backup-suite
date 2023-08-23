@@ -16,6 +16,25 @@ echo "Search Complete"
 # Print message
 echo "Copying Monthly Archive from Daily folder"
 
+# Get the File Name of the most recent MySQL Archive for $DB_NAME_0
+if [ ! -z "$DB_NAME_0" ] 
+then 
+  MONTHLY_MYSQL_0=$(ls $BACKUPS/$BACKUPS_MYSQL -t | egrep $DB_NAME_0'\.sql.gz' | head -1)
+  [ ! -z "$MONTHLY_MYSQL_0" ] && cp $BACKUPS/$BACKUPS_MYSQL/$MONTHLY_MYSQL_0 $BACKUPS/$BACKUPS_MONTHLY/$MONTHLY_MYSQL_0
+fi
+
+if [ ! -z "$DB_NAME_1" ] 
+then 
+  MONTHLY_MYSQL_1=$(ls $BACKUPS/$BACKUPS_MYSQL -t | egrep $DB_NAME_1'\.sql.gz' | head -1)
+  [ ! -z "$MONTHLY_MYSQL_1" ] && cp $BACKUPS/$BACKUPS_MYSQL/$MONTHLY_MYSQL_1 $BACKUPS/$BACKUPS_MONTHLY/$MONTHLY_MYSQL_1
+fi
+
+if [ ! -z "$DB_NAME_2" ] 
+then 
+  MONTHLY_MYSQL_2=$(ls $BACKUPS/$BACKUPS_MYSQL -t | egrep $DB_NAME_2'\.sql.gz' | head -1)
+  [ ! -z "$MONTHLY_MYSQL_2" ] && cp $BACKUPS/$BACKUPS_MYSQL/$MONTHLY_MYSQL_2 $BACKUPS/$BACKUPS_MONTHLY/$MONTHLY_MYSQL_2
+fi
+
 # Copying Archive
 MONTHLY_FILE=$(ls backups/daily -t | egrep '\.tar.gz' | head -1)
 cp $BACKUPS/$BACKUPS_DAILY/$MONTHLY_FILE $BACKUPS/$BACKUPS_MONTHLY/$MONTHLY_FILE 
