@@ -4,36 +4,6 @@ This Suite of Backup Tools are designed to run externally. It can rsync up to 10
 
 It is configurable to archive the MySQL Dumps & rsync files Daily, and Duplicate Weekly and Monthly archives as well as remove out-of-date copies.
 
-___
-
-## TODO: 
-
-Implement passing parameters to the script through crontab:
-```
-15 * * * * /mysql.sh [table_name1]
-30 * * * * /mysql.sh [table_name2]
-```
-
-Then, in `mysql.sh`, we can capture the table name as follows:
-```
-$TABLE=$1 
-```
-
-This will allow me to remove `mysql_1.sh` and `mysql_2.sh`, and run everything through `mysql.sh` This format & setup was just a proof of concept to make sure the `daily.sh`, `weekly.sh` & `monthly.sh` scripts were able to generate proper archival files.
-
-We can also pass multiple variables to `weekly.sh` and `monthly.sh`,
-```
-15 * * * * /weekly.sh [table_name1] [table_name2] [table_name2]
-```
-
-Then, in `weekly.sh` above the mysql search and copy, we can capture the table name as follows:
-```
-$DB_NAME_0=$1 
-$DB_NAME_1=$2 
-$DB_NAME_2=$3 
-```
-___
-
 ## File Notes & Descriptions
 
 The `.sh` scripts below require the .env file exists, and is properly configured. Not all scripts have to be configured to run, however any archiving script require the `mysql_n.sh` **OR** `file-sync.sh` to be run.
@@ -58,9 +28,15 @@ This script will ensure that all folders are created properly.
 
 This script will create an rsync copy of upto 10 paths at once, and save them in `$BACKUPS/$BACKUPS_RSYNC/$ARCHIVE_{n}`
 
-### ``mysql_{n}.sh``
+### ``mysql.sh``
 
 If the script(s) are configured to run, they will create a gzipped mysql dump file and store them in `$BACKUPS/$BACKUPS_DAILY`. Archive copies will be duplicated by `weekly.sh` or `monthly.sh`
+
+You must pass at least one parameter to the script, the database name. There can be multiple, but one minimum.
+
+```
+./mysql.sh database1 database2
+```
 
 ### ``daily.sh``
 
@@ -86,7 +62,7 @@ Once done, it will remove any monthly archive file(s) older than `$KEEP_MONTHLY_
 ## Expected Crontab Implementation
 
 1. `setup.sh` **Manually** One Time at project start.
-2. `mysql_{n}.sh` **Automatic** These can be run within 5 minutes (minimum) increments of each other, giving it time to complete the MySQL Dump. These can also be run as many times as necessary throughout the day.
+2. `mysql.sh` **Automatic** This file can be run one at a time and spaced apart, or it can be run once with multiple mysql dumps at once. Keep in mind if the database is larger, it would be better to split the executions up and run one database per execution.
 3. `file-sync.sh` **Automatic** This can be run as often as required, the more it's run, the less resources it should require on each execution.
 4. `daily.sh` **Automatic** This can be run once daily after `file-sync.sh` runs.
 5. `weekly.sh` **Automatic** This can be run once weekly anytime after `daily.sh` runs.
