@@ -8,7 +8,7 @@ It is configurable to archive the MySQL Dumps & rsync files Daily, and Duplicate
 
 The `.sh` scripts below require the .env file exists, and is properly configured. Not all scripts have to be configured to run, however any archiving script require the `mysql_n.sh` **OR** `file-sync.sh` to be run.
 
-### .env
+### ``.env``
 
 This file can be configured by duplicating the sample.env file. Some things to note:
 
@@ -20,16 +20,35 @@ This file can be configured by duplicating the sample.env file. Some things to n
 6. `$DB_PASS` **MUST NOT** have a `$` in it.
 7. `$DB_HOST` is relative from the web host. 
 
-### setup.sh
+### ``setup.sh``
 
 This script will ensure that all folders are created properly.
 
-### file-sync.sh
+### ``file-sync.sh``
 
 This script will create an rsync copy of upto 10 paths at once, and save them in `$BACKUPS/$BACKUPS_RSYNC/$ARCHIVE_{n}`
 
-### mysql_n.sh
+### ``mysql_{n}.sh``
 
 If the script(s) are configured to run, they will create a gzipped mysql dump file and store them in `$BACKUPS/$BACKUPS_DAILY`. Archive copies will be duplicated by `weekly.sh` or `monthly.sh`
 
+### ``daily.sh``
+
+This script will create an archive of `$BACKUPS/$BACKUPS_RSYNC`, then move the archive to `$BACKUPS/$BACKUPS_DAILY`. Once done, it will remove any daily archive file(s) older than `$KEEP_DAILY_ARCHIVE` day(s) old.
+
+### ``weekly.sh``
+
+This script is designed to run once a week, and it will copy one archive file and `{n}` Mysql Dump Files to `$BACKUPS/$BACKUPS_WEEKLY`:
+1. The latest MySQL Dump from `$BACKUPS/$BACKUPS_MYSQL`.
+2. The latest Archive file from `$BACKUPS/$BACKUPS_DAILY`.
+
+Once done, it will remove any weekly archive file(s) older than `$KEEP_WEEKLY_ARCHIVE` day(s) old.
+
+### ``monthly.sh``
+
+This script is designed to run once a month, and it will one archive file and `{n}` Mysql Dump Files to `$BACKUPS/$BACKUPS_MONTHLY`:
+1. The latest MySQL Dump from `$BACKUPS/$BACKUPS_MYSQL`.
+2. The latest Archive file from `$BACKUPS/$BACKUPS_DAILY`.
+
+Once done, it will remove any monthly archive file(s) older than `$KEEP_MONTHLY_ARCHIVE` day(s) old.
 
