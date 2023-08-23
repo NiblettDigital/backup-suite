@@ -32,7 +32,7 @@ echo "Search Complete"
 echo "Copying Weekly Archive from Daily folder"
 
 # Copying Archive
-WEEKLY_FILE=$(ls backups/daily -t | egrep '\.tar.gz' | head -1)
+WEEKLY_FILE=$(ls $BACKUPS/$BACKUPS_DAILY -t | egrep '\.tar.gz' | head -1)
 cp $BACKUPS/$BACKUPS_DAILY/$WEEKLY_FILE $BACKUPS/$BACKUPS_WEEKLY/$WEEKLY_FILE 
 
 # Print message

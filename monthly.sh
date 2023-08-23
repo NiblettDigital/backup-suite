@@ -4,17 +4,7 @@
 source .env
 
 # Print message
-echo "Searching for the Newest MySQL Archive & Copying to the Monthly Folder"
-
-# Get the File Name of the most recent MySQL Archive
-MONTHLY_MYSQL=$(ls backups/mysql -t | egrep '\.sql.gz' | head -1)
-cp $BACKUPS/$BACKUPS_MYSQL/$MONTHLY_MYSQL $BACKUPS/$BACKUPS_MONTHLY/$MONTHLY_MYSQL 
-
-# Print message
-echo "Search Complete"
-
-# Print message
-echo "Copying Monthly Archive from Daily folder"
+echo "Searching for the Newest MySQL Archive(s) & Copying to the Monthly Folder"
 
 # Get the File Name of the most recent MySQL Archive for $DB_NAME_0
 if [ ! -z "$DB_NAME_0" ] 
@@ -35,8 +25,14 @@ then
   [ ! -z "$MONTHLY_MYSQL_2" ] && cp $BACKUPS/$BACKUPS_MYSQL/$MONTHLY_MYSQL_2 $BACKUPS/$BACKUPS_MONTHLY/$MONTHLY_MYSQL_2
 fi
 
+# Print message
+echo "Search Complete"
+
+# Print message
+echo "Copying Weekly Archive from Daily folder"
+
 # Copying Archive
-MONTHLY_FILE=$(ls backups/daily -t | egrep '\.tar.gz' | head -1)
+MONTHLY_FILE=$(ls $BACKUPS/$BACKUPS_DAILY -t | egrep '\.tar.gz' | head -1)
 cp $BACKUPS/$BACKUPS_DAILY/$MONTHLY_FILE $BACKUPS/$BACKUPS_MONTHLY/$MONTHLY_FILE 
 
 # Print message
