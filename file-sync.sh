@@ -8,9 +8,6 @@ for ARCHIVE in "$@"
 do
   # Print message
   echo "Beginning rsync"
-  
-  # Build File Name
-  FILE_NAME=$DATE_FORMAT-$DATABASE".sql.gz"
 
   # rsync archive folder(s) - pull to this server 
   rsync -arvz -e 'ssh -p '$REMOTE_PORT --delete $REMOTE_HOST:$REMOTE_PATH/$ARCHIVE/* $BACKUPS/$BACKUPS_RSYNC/$ARCHIVE

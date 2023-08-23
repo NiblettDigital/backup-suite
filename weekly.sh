@@ -3,30 +3,22 @@
 # load environment file
 source .env
 
-# Print message
-echo "Searching for the Newest MySQL Archive(s) & Copying to the Weekly Folder"
+# Loop through all parameters passed to the script
+for DATABASE in "$@"
+do
+  # Print message
+  echo "Searching for the Newest MySQL Dump for $DATABASE & Copying to the Weekly Folder"
+  
+  # Build File Name
+  WEEKLY_MYSQL=$(ls $BACKUPS/$BACKUPS_MYSQL -t | egrep $DATABASE'\.sql.gz' | head -1)
 
-# Get the File Name of the most recent MySQL Archive for $DB_NAME_0
-if [ ! -z "$DB_NAME_0" ] 
-then 
-  WEEKLY_MYSQL_0=$(ls $BACKUPS/$BACKUPS_MYSQL -t | egrep $DB_NAME_0'\.sql.gz' | head -1)
-  [ ! -z "$WEEKLY_MYSQL_0" ] && cp $BACKUPS/$BACKUPS_MYSQL/$WEEKLY_MYSQL_0 $BACKUPS/$BACKUPS_WEEKLY/$WEEKLY_MYSQL_0
-fi
+  # IF there is a mysqldump to copy, proceed
+  [ ! -z "$WEEKLY_MYSQL" ] && cp $BACKUPS/$BACKUPS_MYSQL/$WEEKLY_MYSQL $BACKUPS/$BACKUPS_WEEKLY/$WEEKLY_MYSQL
 
-if [ ! -z "$DB_NAME_1" ] 
-then 
-  WEEKLY_MYSQL_1=$(ls $BACKUPS/$BACKUPS_MYSQL -t | egrep $DB_NAME_1'\.sql.gz' | head -1)
-  [ ! -z "$WEEKLY_MYSQL_1" ] && cp $BACKUPS/$BACKUPS_MYSQL/$WEEKLY_MYSQL_1 $BACKUPS/$BACKUPS_WEEKLY/$WEEKLY_MYSQL_1
-fi
+  # Print message
+  echo "Search Complete"
 
-if [ ! -z "$DB_NAME_2" ] 
-then 
-  WEEKLY_MYSQL_2=$(ls $BACKUPS/$BACKUPS_MYSQL -t | egrep $DB_NAME_2'\.sql.gz' | head -1)
-  [ ! -z "$WEEKLY_MYSQL_2" ] && cp $BACKUPS/$BACKUPS_MYSQL/$WEEKLY_MYSQL_2 $BACKUPS/$BACKUPS_WEEKLY/$WEEKLY_MYSQL_2
-fi
-
-# Print message
-echo "Search Complete"
+done
 
 # Print message
 echo "Copying Weekly Archive from Daily folder"
