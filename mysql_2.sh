@@ -7,7 +7,7 @@ source .env
 [ -z "$DB_NAME_2" ] && exit 0;
 
 # Build File Name
-FILE_NAME=$DB_NAME_2-$DATE_FORMAT".sql.gz"
+FILE_NAME=$DATE_FORMAT-$DB_NAME_2".sql.gz"
 
 # Print message
 echo "Beginning MySQL Dump"
