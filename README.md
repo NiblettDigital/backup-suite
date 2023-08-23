@@ -51,4 +51,13 @@ This script is designed to run once a month, and it will one archive file and `{
 2. The latest Archive file from `$BACKUPS/$BACKUPS_DAILY`.
 
 Once done, it will remove any monthly archive file(s) older than `$KEEP_MONTHLY_ARCHIVE` day(s) old.
+<br><br>
 
+## Expected Crontab Implementation
+
+1. `setup.sh` **Manually** One Time at project start.
+2. `mysql_{n}.sh` **Automatic** These can be run within 5 minutes (minimum) increments of each other, giving it time to complete the MySQL Dump. These can also be run as many times as necessary throughout the day.
+3. `file-sync.sh` **Automatic** This can be run as often as required, the more it's run, the less resources it should require on each execution.
+4. `daily.sh` **Automatic** This can be run once daily after `file-sync.sh` runs.
+5. `weekly.sh` **Automatic** This can be run once weekly anytime after `daily.sh` runs.
+5. `monthly.sh` **Automatic** This can be run once monthly anytime after `daily.sh` runs.
