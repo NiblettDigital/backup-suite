@@ -4,6 +4,8 @@ This Suite of Backup Tools are designed to run externally. It can rsync up to 10
 
 It is configurable to archive the MySQL Dumps & rsync files Daily, and Duplicate Weekly and Monthly archives as well as remove out-of-date copies.
 
+___
+
 ## TODO: 
 
 Implement passing parameters to the script through crontab:
@@ -12,8 +14,25 @@ Implement passing parameters to the script through crontab:
 30 * * * * /mysql.sh [table_name2]
 ```
 
+Then, in `mysql.sh`, we can capture the table name as follows:
+```
+$TABLE=$1 
+```
+
 This will allow me to remove `mysql_1.sh` and `mysql_2.sh`, and run everything through `mysql.sh` This format & setup was just a proof of concept to make sure the `daily.sh`, `weekly.sh` & `monthly.sh` scripts were able to generate proper archival files.
 
+We can also pass multiple variables to `weekly.sh` and `monthly.sh`,
+```
+15 * * * * /weekly.sh [table_name1] [table_name2] [table_name2]
+```
+
+Then, in `weekly.sh` above the mysql search and copy, we can capture the table name as follows:
+```
+$DB_NAME_0=$1 
+$DB_NAME_1=$2 
+$DB_NAME_2=$3 
+```
+___
 
 ## File Notes & Descriptions
 
