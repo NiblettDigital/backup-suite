@@ -11,10 +11,10 @@ do
   echo "Searching for the Newest MySQL Dump for $DATABASE & Copying to the Weekly Folder"
   
   # Build File Name
-  WEEKLY_MYSQL=$(ls $BACKUPS/$BACKUPS_MYSQL -t | egrep $DATABASE'\.sql.gz' | head -1)
+  WEEKLY_MYSQL=$(ls $BACKUPS/$BACKUPS_DAILY -t | egrep $DATABASE'\.sql.gz' | head -1)
 
   # IF there is a mysqldump to copy, proceed
-  [ ! -z "$WEEKLY_MYSQL" ] && cp $BACKUPS/$BACKUPS_MYSQL/$WEEKLY_MYSQL $BACKUPS/$BACKUPS_WEEKLY/$WEEKLY_MYSQL
+  [ ! -z "$WEEKLY_MYSQL" ] && cp $BACKUPS/$BACKUPS_DAILY/$WEEKLY_MYSQL $BACKUPS/$BACKUPS_WEEKLY/$WEEKLY_MYSQL
 
   # Print message
   echo "Search Complete"

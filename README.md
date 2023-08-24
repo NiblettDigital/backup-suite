@@ -70,7 +70,7 @@ Example
 ### ``weekly.sh``
 
 This script is designed to run once a week, and it will copy a media archive file (if available) and Mysql Dump File(s) to `$BACKUPS/$BACKUPS_WEEKLY`:
-1. The latest MySQL Dump from `$BACKUPS/$BACKUPS_MYSQL`.
+1. The latest MySQL Dump from `$BACKUPS/$BACKUPS_DAILY`.
 2. The latest Archive file from `$BACKUPS/$BACKUPS_DAILY`.
 
 Once done, it will remove any weekly archive file(s) older than `$KEEP_WEEKLY_ARCHIVE` day(s) old.
@@ -86,7 +86,7 @@ Example [Options are x number of Databases with user $DB_USER access]
 ### ``monthly.sh``
 
 This script is designed to run once a month, and it will one archive file and `{n}` Mysql Dump Files to `$BACKUPS/$BACKUPS_MONTHLY`:
-1. The latest MySQL Dump from `$BACKUPS/$BACKUPS_MYSQL`.
+1. The latest MySQL Dump from `$BACKUPS/$BACKUPS_DAILY`.
 2. The latest Archive file from `$BACKUPS/$BACKUPS_DAILY`.
 
 Once done, it will remove any monthly archive file(s) older than `$KEEP_MONTHLY_ARCHIVE` day(s) old.

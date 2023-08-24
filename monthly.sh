@@ -10,10 +10,10 @@ do
   echo "Searching for the Newest MySQL Dump for $DATABASE & Copying to the Monthly Folder"
   
   # Build File Name
-  MONTHLY_MYSQL=$(ls $BACKUPS/$BACKUPS_MYSQL -t | egrep $DATABASE'\.sql.gz' | head -1)
+  MONTHLY_MYSQL=$(ls $BACKUPS/$BACKUPS_DAILY -t | egrep $DATABASE'\.sql.gz' | head -1)
 
   # IF there is a mysqldump to copy, proceed
-  [ ! -z "$MONTHLY_MYSQL" ] && cp $BACKUPS/$BACKUPS_MYSQL/$MONTHLY_MYSQL $BACKUPS/$BACKUPS_MONTHLY/$MONTHLY_MYSQL
+  [ ! -z "$MONTHLY_MYSQL" ] && cp $BACKUPS/$BACKUPS_DAILY/$MONTHLY_MYSQL $BACKUPS/$BACKUPS_MONTHLY/$MONTHLY_MYSQL
 
   # Print message
   echo "Search Complete"
